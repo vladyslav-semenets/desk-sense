@@ -1,0 +1,13 @@
+{
+  "name": "desk-sense",
+  "description": "Desk Sense",
+  "author": {
+    "name": "Vladyslav Semenets",
+    "email": "developerdev95@gmail.com"
+  },
+  "version": "0.0.1",
+  "main": "main.js",
+  "private": true,
+  "dependencies": {
+  }
+}
