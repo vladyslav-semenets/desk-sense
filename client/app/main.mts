@@ -65,6 +65,13 @@ function createWindow(): BrowserWindow {
     win.loadURL(url.href);
   }
 
+  win?.on('close', () => {
+    win?.webContents?.send('window:before-close');
+    setTimeout(() => {
+      win?.destroy();
+    }, 1000);
+  });
+
   // Emitted when the window is closed.
   win.on('closed', () => {
     // Dereference the window object, usually you would store window

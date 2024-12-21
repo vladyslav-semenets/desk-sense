@@ -3,6 +3,9 @@
 server/node_modules
 client/node_modules
 client/.angular
+client/release
+client/app/app.mjs
+client/app/main.mjs.map
 
 logs
 *.log

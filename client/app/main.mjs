@@ -7,7 +7,6 @@ let win = null;
 const args = process.argv.slice(1), serve = args.some(val => val === '--serve');
 let serverProcess;
 function runServer() {
-    console.log('runServer');
     serverProcess = spawn('node', [
         path.join(fileURLToPath(import.meta.url), '../../../server/index.js'),
     ]);
@@ -52,6 +51,12 @@ function createWindow() {
         const url = new URL(path.join('file:', __dirname, pathIndex));
         win.loadURL(url.href);
     }
+    win?.on('close', () => {
+        win?.webContents?.send('window:before-close');
+        setTimeout(() => {
+            win?.destroy();
+        }, 1000);
+    });
     // Emitted when the window is closed.
     win.on('closed', () => {
         // Dereference the window object, usually you would store window
