@@ -1,11 +1,11 @@
 # compiled output
-/client/dist
+/ui/dist
 server/node_modules
-client/node_modules
-client/.angular
-client/release
-client/app/app.mjs
-client/app/main.mjs.map
+ui/node_modules
+ui/.angular
+ui/release
+ui/app/app.mjs
+ui/app/main.mjs.map
 
 logs
 *.log
@@ -43,4 +43,4 @@ docker/data/*
 
 # Misc
 .env
-client/.env.local
+ui/.env.local
