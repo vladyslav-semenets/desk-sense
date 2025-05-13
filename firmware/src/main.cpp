@@ -1,5 +1,7 @@
 #include <Arduino.h>
 
+#include <HardwareSerial.h>
+
 #include <ArduinoJson.h>
 
 #include <WiFiClientSecure.h>
@@ -22,6 +24,8 @@
 #define CM_TO_INCH 0.393701
 #define SITTING_DISTANCE 70
 #define STANDING_DISTANCE 90
+#define RXp2 17
+#define TXp2 16
 
 WebSocketsClient webSocket;
 RealtimeDatabase realtimeDBInstance;
@@ -39,9 +43,8 @@ const long gmtOffset_sec = 0;
 const int daylightOffset_sec = 3600;
 bool isSubscribed = false;
 bool isNeedRunMeasuring = false;
-unsigned long previousMillis = 0; // Stores the last time runMeasuring was executed
-const unsigned long interval = 5000; // Interval in milliseconds (5 seconds)
-
+unsigned long previousMillis = 0;
+const unsigned long interval = 5000;
 
 int getTimestamp() {
   struct tm timeInfo;
@@ -113,6 +116,12 @@ void runMeasuring() {
 void setup() {
   Serial.begin(115200);
   Serial.setDebugOutput(true);
+
+  while (!Serial) {
+    delay(10);
+  }
+
+  Serial2.begin(9600, SERIAL_8N1, RXp2, TXp2);
 
   connectToWifi();
   waitForWiFiConnection();

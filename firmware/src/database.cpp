@@ -4,10 +4,7 @@
 
 #include "database.h"
 
-#define API_KEY "AIzaSyAaszM8XuzMKlEa8sFb5A1tWPqAF3Zj29Q"
-#define DATABASE_URL "https://esp32-943ad-default-rtdb.europe-west1.firebasedatabase.app"
-#define USER_EMAIL "esp32DeskSensApp@gmail.com"
-#define USER_PASSWORD "210716hiQ30_"
+#include "env.h"
 
 WiFiClientSecure wiFiClientSecure;
 DefaultNetwork network;
@@ -15,7 +12,7 @@ AsyncClientClass client(wiFiClientSecure, getNetwork(network));
 
 FirebaseApp app;
 RealtimeDatabase Database;
-UserAuth userAuth(API_KEY, USER_EMAIL, USER_PASSWORD);
+UserAuth userAuth(FIREBASE_API_KEY, FIREBASE_USER_EMAIL, FIREBASE_USER_PASSWORD);
 AsyncResult aResultNoCallback;
 
 int count = 0;
@@ -61,28 +58,13 @@ void createDBRecord(const String & path, object_t json) {
   } else {
     printError(client.lastError().code(), client.lastError().message());
   }
-
-  // Serial.print("Push JSON... ");
-  // String name = Database.push<object_t>(client, "/test/push", object_t("{\"test\":{\"data\":123}}"));
-  // if (client.lastError().code() == 0) {
-  //     Firebase.printf("ok, name: %s\n", name.c_str());
-  // }
-
-  // Serial.print("Get JSON... ");
-  // String v6 = Database.get<String>(client, "/test/json");
-
-  // if (client.lastError().code() == 0) {
-  //     Serial.println(v6);
-  // } else {
-  //     printError(client.lastError().code(), client.lastError().message());
-  // }
 }
 
 RealtimeDatabase& connectToDB() {
   wiFiClientSecure.setInsecure();
   initializeApp(client, app, getAuth(userAuth), aResultNoCallback);
   app.getApp<RealtimeDatabase>(Database);
-  Database.url(DATABASE_URL);
+  Database.url(FIREBASE_DATABASE_URL);
   client.setAsyncResult(aResultNoCallback);
   return Database;
 }

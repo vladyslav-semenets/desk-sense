@@ -10,18 +10,16 @@
 
 #include "websocket.util.h"
 
+#include "env.h"
+
 WebSocketsClient ws;
 ProcessWebSocketMessageCallback processWebSocketMessageCallback;
-
-const char * pusherKey = "366d78f54727f5e9b7d1";
-const char * pusherSecret = "eda2fe887b30a107b7c3";
-const char * pusherCluster = "eu";
 String pusherConnectionEstablishedEventName = "pusher:connection_established";
 String pusherSubscribeEventName = "pusher:subscribe";
 String pusherSocketId;
 
 String getAuthCode(String channelName) {
-  SHA256HMAC hmac((const byte * ) pusherSecret, strlen(pusherSecret));
+  SHA256HMAC hmac((const byte * ) PUSHER_SECRET, strlen(PUSHER_SECRET));
   String dataToHash = pusherSocketId + ":" + channelName;
   hmac.doUpdate((byte * ) dataToHash.c_str(), strlen(dataToHash.c_str()));
 
@@ -33,7 +31,7 @@ String getAuthCode(String channelName) {
     sprintf( & hmacResult[i * 2], "%02x", authCode[i]);
   }
 
-  return String(pusherKey) + ":" + String(hmacResult);
+  return String(PUSHER_KEY) + ":" + String(hmacResult);
 }
 
 bool subscribeOnWebsocketChannel(String channelName, WebSocketsClient * webSocketsClient) {
@@ -99,8 +97,8 @@ void onWebSocketEvent(WStype_t type, uint8_t * payload, size_t length) {
 WebSocketsClient & connectToWebsocketServer(ProcessWebSocketMessageCallback callback) {
   processWebSocketMessageCallback = callback;
 
-  String host = String("ws-" + String(pusherCluster) + ".pusher.com");
-  String path = String("/app/" + String(pusherKey) + "?protocol=7&client=js&version=8.4.0-rc2&flash=false");
+  String host = String("ws-" + String(PUSHER_CLUSTER) + ".pusher.com");
+  String path = String("/app/" + String(PUSHER_KEY) + "?protocol=7&client=js&version=8.4.0-rc2&flash=false");
 
   Serial.println();
   Serial.print("[WB] Connecting to WebSocket server...");

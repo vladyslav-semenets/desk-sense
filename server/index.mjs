@@ -1,6 +1,6 @@
-import * as express from 'express';
-import * as cors from 'cors';
-import * as Pusher from 'pusher';
+import express from 'express';
+import cors from 'cors';
+import Pusher from 'pusher';
 const pusher = new Pusher({
     appId: process.env.PUSHER_APP_ID,
     key: process.env.PUSHER_APP_KEY,
