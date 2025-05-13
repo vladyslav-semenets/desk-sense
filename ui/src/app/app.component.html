@@ -1,8 +1,8 @@
 <main class="main">
-  @if (currentUser()) {
+    @if (currentUser()) {
     <button class="logout" mat-raised-button (click)="logout()">Log out</button>
-  }
-  <div class="content">
-    <router-outlet />
-  </div>
+    }
+    <div class="content">
+        <router-outlet/>
+    </div>
 </main>

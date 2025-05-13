@@ -8,40 +8,40 @@ import * as fs from 'fs';
 import { ReplaySubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ElectronService {
-  public ipcRenderer!: typeof ipcRenderer;
-  public webFrame!: typeof webFrame;
-  public childProcess!: typeof childProcess;
-  public fs!: typeof fs;
-  public beforeCloseWindow$: ReplaySubject<void> = new ReplaySubject<void>(1);
+    public ipcRenderer!: typeof ipcRenderer;
+    public webFrame!: typeof webFrame;
+    public childProcess!: typeof childProcess;
+    public fs!: typeof fs;
+    public beforeCloseWindow$: ReplaySubject<void> = new ReplaySubject<void>(1);
 
-  constructor() {
-    if (this.isElectron) {
-      this.ipcRenderer = (window as any).require('electron').ipcRenderer;
-      this.webFrame = (window as any).require('electron').webFrame;
+    constructor() {
+        if (this.isElectron) {
+            this.ipcRenderer = (window as any).require('electron').ipcRenderer;
+            this.webFrame = (window as any).require('electron').webFrame;
 
-      this.fs = (window as any).require('fs');
+            this.fs = (window as any).require('fs');
 
-      this.childProcess = (window as any).require('child_process');
-      this.childProcess.exec('node -v', (error, stdout, stderr) => {
-        if (error) {
-          console.error(`error: ${error.message}`);
-          return;
+            this.childProcess = (window as any).require('child_process');
+            this.childProcess.exec('node -v', (error, stdout, stderr) => {
+                if (error) {
+                    console.error(`error: ${error.message}`);
+                    return;
+                }
+                if (stderr) {
+                    console.error(`stderr: ${stderr}`);
+                    return;
+                }
+                console.log(`stdout:\n${stdout}`);
+            });
+
+            this.ipcRenderer.once('window:before-close', () => this.beforeCloseWindow$.next());
         }
-        if (stderr) {
-          console.error(`stderr: ${stderr}`);
-          return;
-        }
-        console.log(`stdout:\n${stdout}`);
-      });
-
-      this.ipcRenderer.once('window:before-close', () => this.beforeCloseWindow$.next());
     }
-  }
 
-  get isElectron(): boolean {
-    return !!(window && window.process && window.process.type);
-  }
+    get isElectron(): boolean {
+        return !!(window && window.process && window.process.type);
+    }
 }

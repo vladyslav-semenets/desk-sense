@@ -1,55 +1,56 @@
 :host {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
 .desk {
 
-  svg {
-    width: 300px;
-    height: 300px;
-  }
-  .desk-top {
-    fill: #FFFFFFFF;
-  }
+    svg {
+        width: 300px;
+        height: 300px;
+    }
 
-  .leg {
-    fill: #FFFFFFFF;
-    height: 90px;
-    transition: height 2s ease-in-out;
-  }
+    .desk-top {
+        fill: #FFFFFFFF;
+    }
 
-  .desk-group {
-    transform: translateY(0);
-    transition: transform 2s ease-in-out;
-  }
+    .leg {
+        fill: #FFFFFFFF;
+        height: 90px;
+        transition: height 2s ease-in-out;
+    }
 
-  .desk-group.down {
-    transform: translateY(40px);
-  }
+    .desk-group {
+        transform: translateY(0);
+        transition: transform 2s ease-in-out;
+    }
 
-  .desk-group.down .leg {
-    height: 50px;
-  }
+    .desk-group.down {
+        transform: translateY(40px);
+    }
 
-  .macbook {
-    fill: #555555FF;
-  }
+    .desk-group.down .leg {
+        height: 50px;
+    }
 
-  .floor {
-    fill: #999999FF;
-  }
+    .macbook {
+        fill: #555555FF;
+    }
+
+    .floor {
+        fill: #999999FF;
+    }
 }
 
 .elapsed-time {
-  display: flex;
-  gap: 10px;
+    display: flex;
+    gap: 10px;
 
-  &__label, &__time {
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-  }
+    &__label, &__time {
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+    }
 }

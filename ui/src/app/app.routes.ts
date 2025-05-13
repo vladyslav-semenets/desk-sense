@@ -8,21 +8,21 @@ const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['auth']);
 const redirectLoggedInToItems = () => redirectLoggedInTo(['home']);
 
 export const routes: Routes = [
-  {
-    path: 'home',
-    component: HomeComponent,
-    canActivate: [AuthGuard],
-    data: { authGuardPipe: redirectUnauthorizedToLogin },
-  },
-  {
-    path: 'auth',
-    component: AuthComponent,
-    canActivate: [AuthGuard],
-    data: { authGuardPipe: redirectLoggedInToItems },
-  },
-  {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'auth'
-  },
+    {
+        path: 'home',
+        component: HomeComponent,
+        canActivate: [AuthGuard],
+        data: {authGuardPipe: redirectUnauthorizedToLogin},
+    },
+    {
+        path: 'auth',
+        component: AuthComponent,
+        canActivate: [AuthGuard],
+        data: {authGuardPipe: redirectLoggedInToItems},
+    },
+    {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'auth'
+    },
 ];
