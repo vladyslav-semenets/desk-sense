@@ -3,12 +3,12 @@ import { Router, RouterOutlet } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Auth, signOut, User, user } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MatButtonModule, MatDividerModule, MatIconModule, NgIf, CommonModule],
+  imports: [RouterOutlet, MatButtonModule, MatDividerModule, MatIconModule, CommonModule],
   standalone: true,
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

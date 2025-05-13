@@ -12,7 +12,16 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideFirebaseApp(() => initializeApp({"projectId":"esp32-943ad","appId":"1:377441967702:web:03463434486955e10865f7","databaseURL":"https://esp32-943ad-default-rtdb.europe-west1.firebasedatabase.app","storageBucket":"esp32-943ad.firebasestorage.app","apiKey":"AIzaSyAaszM8XuzMKlEa8sFb5A1tWPqAF3Zj29Q","authDomain":"esp32-943ad.firebaseapp.com","messagingSenderId":"377441967702","measurementId":"G-MPFQ2XFSX9"})),
+    provideFirebaseApp(() => initializeApp({
+        projectId: import.meta.env.NG_APP_FIREBASE_PROJECT_ID,
+        appId: import.meta.env.NG_APP_FIREBASE_APP_ID,
+        databaseURL: import.meta.env.NG_APP_FIREBASE_DATABASE_URL,
+        storageBucket: import.meta.env.NG_APP_FIREBASE_STORAGE_BUCKET,
+        apiKey: import.meta.env.NG_APP_FIREBASE_API_KEY,
+        authDomain: import.meta.env.NG_APP_FIREBASE_AUTH_DOMAIN,
+        messagingSenderId: import.meta.env.NG_APP_FIREBASE_MESSAGING_SENDER_ID,
+        measurementId: import.meta.env.NG_APP_FIREBASE_MEASUREMENT_ID,
+    })),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()), provideAnimationsAsync(),
     importProvidersFrom(AuthGuardModule),

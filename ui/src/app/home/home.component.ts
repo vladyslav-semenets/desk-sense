@@ -99,9 +99,8 @@ export class HomeComponent implements OnInit, OnDestroy {
           }
         }
       },
-      error: (err) => {
-        //PERMISSION_DENIED
-        console.error(err)
+      error: (error) => {
+        console.error(error)
       },
     });
   }
